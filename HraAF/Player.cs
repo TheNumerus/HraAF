@@ -19,7 +19,7 @@ namespace HraAF {
 
         public override void ApplyGravity() {
             addX(3);
-            if (getX() > 800) {
+            if (getX() > 700) {
                 Dispatcher.Invoke(new Action(() => {
                     page.begin.Stop();
                     page.ResetGame(); 
@@ -39,7 +39,7 @@ namespace HraAF {
             if (_pressedKeys.Contains(Key.Left) && getY() > 0) {
                 addY(-5);
             }
-            if (_pressedKeys.Contains(Key.Right) && getY() < 800) {
+            if (_pressedKeys.Contains(Key.Right) && getY() < 755) {
                 addY(5);
             }
             if (_pressedKeys.Contains(Key.Up)) {
