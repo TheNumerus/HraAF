@@ -10,7 +10,7 @@ using System.Windows.Threading;
 namespace HraAF {
     class Player : PlayableObject {
         List<Key> _pressedKeys = new List<Key>();
-        public MainWindow window;
+        public Game page;
         public void Init() {
             this.KeyDown += AddKey;
             this.KeyUp += RemoveKey;
@@ -20,8 +20,10 @@ namespace HraAF {
         public override void ApplyGravity() {
             addX(3);
             if (getX() > 800) {
-                window.begin.Stop();
-                window.ResetGame();
+                Dispatcher.Invoke(new Action(() => {
+                    page.begin.Stop();
+                    page.ResetGame(); 
+                }), DispatcherPriority.Send);
             }
         }
 
@@ -50,23 +52,30 @@ namespace HraAF {
 
         public void HandleCollisions() {
             try {
-                foreach (Meteor m in window.SpawnerMeteor.meteors) {
-                    if (getDistance(m) < 5) {
-                        //addX(-500);
+                foreach (Meteor m in page.SpawnerMeteor.meteors) {
+                    if (getDistance(m) < m.radius-20) {
+                        Dispatcher.Invoke(new Action(() => {
+                            page.begin.Stop();
+                            page.ResetGame();
+                            m.setColor(false);
+                        }), DispatcherPriority.Send);
                     }
                 }
             } catch { }
         }
         public float getDistance(Meteor m) {
-            float output = -1;
-            int playerY = getY();
-            int playerX = getX();
-            int meteorY = m.getY()/* + (int)m.Height / 2*/;
-            int meteorX = m.getX()/* + (int)m.Width / 2*/;
-            output = (float)Math.Sqrt(((Math.Abs(playerX - meteorX) ^ 2) + (Math.Abs(playerY - meteorY) ^ 2)));
-            Dispatcher.Invoke(new Action(() => {
-                m.t.Text = output.ToString();
-            }), DispatcherPriority.Send);
+            float output = 9001;
+            float playerY = (float)getY()+ (float)7.5;
+            float meteorY = m.getY();
+            meteorY += m.radius / 2;
+            if (Math.Abs(playerY - meteorY) < 100) {
+                float playerX = getX();
+                float meteorX = m.getX() + m.radius / 2;
+                output = (float)Math.Sqrt(Math.Abs(Math.Pow(playerX - meteorX,2)) + Math.Abs(Math.Pow(playerY - meteorY,2)));
+                /*Dispatcher.Invoke(new Action(() => {
+                    m.t.Text = output.ToString();
+                }), DispatcherPriority.Send);*/
+            }
             return output;
         }
 

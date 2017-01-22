@@ -12,7 +12,7 @@ using System.Windows.Threading;
 namespace HraAF {
     public class PlayableObject : Grid {
         virtual public void ApplyGravity() {
-            if (getX() < 1200) {
+            if (getX() < 800) {
                 addX(3);
             }
         }

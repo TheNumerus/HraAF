@@ -5,10 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HraAF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280" ResizeMode="CanMinimize">
-    <Canvas x:Name="MainCanvas" Background="#FF3E3E3E">
-        <local:Player x:Name="Player" Height="40" Width="15" Background="White" Canvas.Left="633.5" Canvas.Top="200"/>
-        <local:Spawner x:Name="SpawnerMeteor" Height="40" Width="1400" Canvas.Left="-60" Canvas.Top="-20" />
-        <TextBlock x:Name="cas" Text="cas" Foreground="White" Canvas.Right="10" Canvas.Top="10" FontSize="42.667" Panel.ZIndex="100"/>
-    </Canvas>
+        Title="MainWindow" Height="600" Width="800" ResizeMode="CanMinimize">
+    <Frame x:Name="Pages" NavigationUIVisibility="Hidden">
+        
+    </Frame>
 </Window>

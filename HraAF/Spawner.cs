@@ -12,11 +12,12 @@ using System.Windows.Media;
 namespace HraAF {
     class Spawner : Grid {
         public Canvas canvas;
-        public MainWindow window;
+        public Game page;
         public List<Meteor> meteors;
+        public Timer Tick;
         public void Init() {
             meteors = new List<Meteor>();
-            Timer Tick = new Timer(400);
+            Tick = new Timer(400);
             Tick.AutoReset = true;
             Tick.Elapsed += Tick_Elapsed;
             Tick.Start();
@@ -30,15 +31,15 @@ namespace HraAF {
                     meteors.Add(rect);
                     //nastanevi hodnot
                     rect.c.Fill = new SolidColorBrush(Colors.Red);
-                    rect.Height = rect.Width = rect.c.Width = rect.c.Height = r.Next() % 40 + 60;
+                    rect.Height = rect.Width = rect.c.Width = rect.c.Height = rect.radius = r.Next() % 40 + 60;
                     rect.init();
                     //RotateTransform rotateTransform1 = new RotateTransform(r.Next() % 360, rect.Height / 2, rect.Width / 2);
                     //rect.RenderTransform = rotateTransform1;
                     //prirazeni do kolekci a nastaveni polohy
                     canvas.Children.Add(rect);
-                    Canvas.SetLeft(rect, r.Next() % 1300);
-                    Canvas.SetTop(rect, -400);
-                    window.objects.Add(rect);
+                    Canvas.SetLeft(rect, r.Next() % 900);
+                    Canvas.SetTop(rect, -200);
+                    page.objects.Add(rect);
                 }), DispatcherPriority.Send);
             } catch { }
         }

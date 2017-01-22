@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Timers;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,21 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Threading;
-using System.Diagnostics;
 
 namespace HraAF {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Skore.xaml
     /// </summary>
-    public partial class MainWindow : Window {
-        public MainWindow() {
+    public partial class Skore : Page {
+        public Skore() {
             InitializeComponent();
-            RecordsAPI.Load();
-            Pages.Content = new Game(this);
-        }
-        public void ResetGame() {
-            Pages.Content = new Game(this);
+            for (int i = 0; i < RecordsAPI.rekordy.rekordy.GetLength(0); i++) {
+                TextBlock tb = new TextBlock();
+                tb.Text = RecordsAPI.rekordy.rekordy[i].rekord.ToString();
+                SkorePanel.Children.Add(tb);
+            }
         }
     }
 }
