@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Diagnostics;
 
 namespace HraAF {
     /// <summary>
@@ -21,8 +22,10 @@ namespace HraAF {
     /// </summary>
     public partial class MainWindow : Window {
         public List<PlayableObject> objects = new List<PlayableObject>();
+        public Stopwatch begin;
         public MainWindow() {
             InitializeComponent();
+            begin = Stopwatch.StartNew();
             Timer Tick = new Timer(1);
             objects.Add(Player);
             Tick.AutoReset = true;
@@ -40,10 +43,35 @@ namespace HraAF {
             objects.Add(Player);
             Canvas.SetTop(Player, 200);
         }
+
+        string MilisecondsToTime (long miliseconds) {
+            int seconds = (int)(miliseconds / 1000);
+            int remMiliseconds = (int)(miliseconds - (long)seconds*1000);
+            int minutes = seconds / 60;
+            seconds -= minutes * 60;
+            String output = minutes + ":";
+
+            if (seconds > 9) {
+                output += seconds;
+            } else {
+                output += "0" + seconds;
+            }
+            output += ":";
+            if (remMiliseconds > 99) {
+                output += remMiliseconds;
+            } else if (remMiliseconds > 9 && remMiliseconds < 100) {
+                output += "0" + remMiliseconds;
+            } else {
+                output += "00" + remMiliseconds;
+            }
+            return output;
+        }
+
         private void Tick_Elapsed(object sender, ElapsedEventArgs e) {
             try {
                 Dispatcher.Invoke(new Action(() => {
                     Keyboard.Focus(Player);
+                    cas.Text = MilisecondsToTime(begin.ElapsedMilliseconds);
                 }), DispatcherPriority.Send);
             } catch { }
             Player.HandleInput();
