@@ -27,6 +27,10 @@ namespace HraAF {
             Pages.Content = new Game(this);
         }
         public void ResetGame() {
+            Pages.Content = new Skore(this);
+        }
+
+        public void StartGame() {
             Pages.Content = new Game(this);
         }
     }

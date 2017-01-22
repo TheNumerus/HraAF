@@ -31,10 +31,11 @@ namespace HraAF {
                     meteors.Add(rect);
                     //nastanevi hodnot
                     rect.c.Fill = new SolidColorBrush(Colors.Red);
-                    rect.Height = rect.Width = rect.c.Width = rect.c.Height = rect.radius = r.Next() % 40 + 60;
+                    int size = r.Next() % 40 + 60;
+                    rect.Height = rect.Width = rect.c.Width = rect.c.Height = rect.radius = size;
                     rect.init();
-                    //RotateTransform rotateTransform1 = new RotateTransform(r.Next() % 360, rect.Height / 2, rect.Width / 2);
-                    //rect.RenderTransform = rotateTransform1;
+                    RotateTransform rotateTransform1 = new RotateTransform(r.Next(360), size/2, size/2);
+                    rect.RenderTransform = rotateTransform1;
                     //prirazeni do kolekci a nastaveni polohy
                     canvas.Children.Add(rect);
                     Canvas.SetLeft(rect, r.Next() % 900);

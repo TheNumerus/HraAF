@@ -39,7 +39,7 @@ namespace HraAF {
             if (_pressedKeys.Contains(Key.Left) && getY() > 0) {
                 addY(-5);
             }
-            if (_pressedKeys.Contains(Key.Right) && getY() < 1245) {
+            if (_pressedKeys.Contains(Key.Right) && getY() < 800) {
                 addY(5);
             }
             if (_pressedKeys.Contains(Key.Up)) {
@@ -53,11 +53,10 @@ namespace HraAF {
         public void HandleCollisions() {
             try {
                 foreach (Meteor m in page.SpawnerMeteor.meteors) {
-                    if (getDistance(m) < m.radius-20) {
+                    if (getDistance(m) < m.radius-30) {
                         Dispatcher.Invoke(new Action(() => {
                             page.begin.Stop();
                             page.ResetGame();
-                            m.setColor(false);
                         }), DispatcherPriority.Send);
                     }
                 }
@@ -65,16 +64,13 @@ namespace HraAF {
         }
         public float getDistance(Meteor m) {
             float output = 9001;
-            float playerY = (float)getY()+ (float)7.5;
+            float playerY = (float)getY()+ (float)15;
             float meteorY = m.getY();
             meteorY += m.radius / 2;
             if (Math.Abs(playerY - meteorY) < 100) {
                 float playerX = getX();
                 float meteorX = m.getX() + m.radius / 2;
                 output = (float)Math.Sqrt(Math.Abs(Math.Pow(playerX - meteorX,2)) + Math.Abs(Math.Pow(playerY - meteorY,2)));
-                /*Dispatcher.Invoke(new Action(() => {
-                    m.t.Text = output.ToString();
-                }), DispatcherPriority.Send);*/
             }
             return output;
         }

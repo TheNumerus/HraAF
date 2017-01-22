@@ -18,13 +18,34 @@ namespace HraAF {
     /// Interaction logic for Skore.xaml
     /// </summary>
     public partial class Skore : Page {
+        MainWindow window;
         public Skore() {
             InitializeComponent();
             for (int i = 0; i < RecordsAPI.rekordy.rekordy.GetLength(0); i++) {
                 TextBlock tb = new TextBlock();
-                tb.Text = RecordsAPI.rekordy.rekordy[i].rekord.ToString();
+                tb.Foreground = new SolidColorBrush(Colors.White);
+                tb.Text = Helpers.MilisecondsToTime((long)RecordsAPI.rekordy.rekordy[i].rekord);
                 SkorePanel.Children.Add(tb);
             }
+        }
+
+        public Skore(MainWindow window) {
+            this.window = window;
+            InitializeComponent();
+            for (int i = 0; i < RecordsAPI.rekordy.rekordy.GetLength(0); i++) {
+                TextBlock tb = new TextBlock();
+                tb.Foreground = new SolidColorBrush(Colors.White);
+                tb.Text = Helpers.MilisecondsToTime((long)RecordsAPI.rekordy.rekordy[i].rekord);
+                SkorePanel.Children.Add(tb);
+            }
+        }
+
+        private void exit_Click(object sender, RoutedEventArgs e) {
+            Application.Current.Shutdown();
+        }
+
+        private void game_Click(object sender, RoutedEventArgs e) {
+            window.StartGame();
         }
     }
 }

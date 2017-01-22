@@ -25,13 +25,13 @@ namespace HraAF {
             }
             Record newTime = new Record(cas,"Test");
             for (int i = 0; i < 10; i++) {
-                if (rekordy.rekordy[i].rekord < newTime.rekord || rekordy.rekordy[i].rekord == -1) {
+                if (rekordy.rekordy[i].rekord < newTime.rekord || rekordy.rekordy[i].rekord == (float)-1) {
                     for (int x = 9; x > i; x--) {
                         rekordy.rekordy[x] = rekordy.rekordy[x - 1];
                     }
                     rekordy.rekordy[i] = newTime;
+                    break;
                 }
-                break;
             }
             Save();
         }

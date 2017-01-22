@@ -9,8 +9,18 @@
       Title="Game">
 
     <Grid>
-        <Canvas x:Name="MainCanvas" Background="#FF3E3E3E">
-            <local:Player x:Name="Player" Height="40" Width="15" Background="White" Canvas.Left="392.5" Canvas.Top="200"/>
+        <Grid.Background>
+            <ImageBrush ImageSource="lead_960.jpg" TileMode="Tile"/>
+        </Grid.Background>
+        <Canvas x:Name="MainCanvas">
+            <Canvas.Background>
+                <ImageBrush/>
+            </Canvas.Background>
+            <local:Player x:Name="Player" Height="60" Width="30" Canvas.Left="392.5" Canvas.Top="200">
+                <local:Player.Background>
+                    <ImageBrush ImageSource="raketka.png"/>
+                </local:Player.Background>
+            </local:Player>
             <local:Spawner x:Name="SpawnerMeteor" Height="40" Width="900" Canvas.Left="-50" Canvas.Top="-20" />
             <TextBlock x:Name="cas" Text="cas" Foreground="White" Canvas.Right="10" Canvas.Top="10" FontSize="42.667" Panel.ZIndex="100"/>
         </Canvas>

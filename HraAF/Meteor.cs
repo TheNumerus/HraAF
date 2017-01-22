@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace HraAF {
     class Meteor : PlayableObject{
         Random r = new Random();
-        public Ellipse c = new Ellipse();
-        public TextBlock t = new TextBlock();
+        public Rectangle c = new Rectangle();
         public int radius;
         bool generated = false;
         int speed = -1;
@@ -24,24 +24,17 @@ namespace HraAF {
                 }
                 addX(speed);
             } else {
-                setColor(true);
                 setX(-200);
                 setY(r.Next() % 900);
             }
         }
         public void init() {
             this.Children.Add(c);
-            this.Children.Add(t);
-            t.Foreground = new SolidColorBrush(Colors.White);
-        }
-        public void setColor(bool reset) {
-            Dispatcher.Invoke(new Action(() => {
-                if (!reset) {
-                    c.Fill = new SolidColorBrush(Colors.Green);
-                } else {
-                    c.Fill = new SolidColorBrush(Colors.Red);
-                }
-            }), DispatcherPriority.Send);
+            BitmapImage logo = new BitmapImage();
+            logo.BeginInit();
+            logo.UriSource = new Uri("pack://application:,,,/HraAF;component/0017.png");
+            logo.EndInit();
+            c.Fill = new ImageBrush(logo);
         }
     }
 }

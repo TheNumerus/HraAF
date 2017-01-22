@@ -45,8 +45,7 @@ namespace HraAF {
         }
 
         public void ResetGame() {
-            //zastaveni spawnu
-            begin.Stop();
+            //zastaveni spawnu a ticku
             Tick.Stop();
             SpawnerMeteor.Tick.Stop();
             foreach (PlayableObject o in objects) {
@@ -55,6 +54,7 @@ namespace HraAF {
             //ulozeni casu
             
             RecordsAPI.addRecord(begin.ElapsedMilliseconds);
+            begin.Stop();
             window.ResetGame();
         }
 
